@@ -4,7 +4,7 @@ from scipy import linalg
 import matplotlib.pyplot as plt
 
 x_old = np.array([0.,0.]) # The value does not matter as long as abs(x_new - x_old) > precision
-x_new = np.array([3.1,3.1]) # The algorithm starts at x=6
+x_new = np.array([5,3.1]) # The algorithm starts at x=6
 gamma = 0.01 # step size
 precision = 0.00000001
 
@@ -32,10 +32,11 @@ n = 1
 u = np.array([3.2,2])
 
 #sys.exit()
-while abs(x_new - x_old)[0] > precision*np.ones(2)[0]:
+steps = 0
+while np.sqrt(sum((x_new-x_old)**2)) > precision:
 	x_old = x_new
-	x_new += -gamma * df2(x_old, n=n, sigma=sigma, u=u)[1]
-
+	x_new = x_new -gamma * df2(x_old, n=n, sigma=sigma, u=u)[1]
+	steps += 1
 print("The local minimum occurs at "+str(x_new))
 
 
